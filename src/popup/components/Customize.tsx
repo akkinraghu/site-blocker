@@ -1,88 +1,27 @@
 import React from 'react';
-import { CustomBlockPage } from '../../types';
 
-interface CustomizeProps {
-  customBlockPage: CustomBlockPage;
-  onChange: (customBlockPage: CustomBlockPage) => void;
+export interface CustomizeProps {
+  customBlockPage: boolean;
+  onChange: (customBlockPage: boolean) => void;
 }
 
 const Customize: React.FC<CustomizeProps> = ({ customBlockPage, onChange }) => {
-  const handleChange = (updates: Partial<CustomBlockPage>) => {
-    onChange({ ...customBlockPage, ...updates });
-  };
-
   return (
-    <div className="tab-pane active">
-      <div className="mb-3">
-        <label className="form-label">Block Page Title</label>
-        <input
-          type="text"
-          className="form-control"
-          value={customBlockPage.title}
-          onChange={(e) => handleChange({ title: e.target.value })}
-        />
-      </div>
-
-      <div className="mb-3">
-        <label className="form-label">Block Page Message</label>
-        <textarea
-          className="form-control"
-          rows={3}
-          value={customBlockPage.message}
-          onChange={(e) => handleChange({ message: e.target.value })}
-        />
-      </div>
-
-      <div className="row">
-        <div className="col-md-6 mb-3">
-          <label className="form-label">Background Color</label>
-          <div className="input-group">
-            <input
-              type="color"
-              className="form-control form-control-color"
-              value={customBlockPage.backgroundColor}
-              onChange={(e) => handleChange({ backgroundColor: e.target.value })}
-            />
-            <input
-              type="text"
-              className="form-control"
-              value={customBlockPage.backgroundColor}
-              onChange={(e) => handleChange({ backgroundColor: e.target.value })}
-            />
-          </div>
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <h3 className="text-lg font-medium text-gray-900">Custom Block Page</h3>
+          <p className="text-sm text-gray-500">Enable a custom page when sites are blocked</p>
         </div>
-
-        <div className="col-md-6 mb-3">
-          <label className="form-label">Text Color</label>
-          <div className="input-group">
-            <input
-              type="color"
-              className="form-control form-control-color"
-              value={customBlockPage.textColor}
-              onChange={(e) => handleChange({ textColor: e.target.value })}
-            />
-            <input
-              type="text"
-              className="form-control"
-              value={customBlockPage.textColor}
-              onChange={(e) => handleChange({ textColor: e.target.value })}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="card mt-3">
-        <div className="card-header">Preview</div>
-        <div
-          className="card-body"
-          style={{
-            backgroundColor: customBlockPage.backgroundColor,
-            color: customBlockPage.textColor
-          }}
-        >
-          <h5 className="card-title">{customBlockPage.title}</h5>
-          <p className="card-text">{customBlockPage.message}</p>
-        </div>
+        <label className="relative inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            checked={customBlockPage}
+            onChange={(e) => onChange(e.target.checked)}
+            className="sr-only peer"
+          />
+          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
+        </label>
       </div>
     </div>
   );
